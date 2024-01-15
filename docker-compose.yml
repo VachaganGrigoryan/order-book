@@ -1,0 +1,57 @@
+version: "3"
+
+services:
+  ui:
+    container_name: order-book-ui
+    build:
+      context: ./ui
+      dockerfile: local.Dockerfile
+#      args:
+#        - NEXT_PUBLIC_API_URL=http://0.0.0.0:8000/api
+    environment:
+      - NEXT_PUBLIC_API_URL=http://0.0.0.0:8000/api
+    volumes:
+      - ./ui/src:/app/src
+      - ./ui/public:/app/public
+    restart: always
+    ports:
+      - 3000:3000
+
+  app:
+    container_name: order-book-api
+    build:
+      context: ./app
+      dockerfile: Dockerfile
+    ports:
+      - 8000:8000
+    environment:
+    - ENV=local
+    - HOST_URL=0.0.0.0
+    - HOST_PORT=8000
+    - SECRET_KEY=t8^50(05m1pfn_#z4^%cczk=9jh$8_ie2p-)-4p6(+3f&)l)&l
+    - DEBUG=True
+    - USE_SQLITE=False
+    - POSTGRES_HOST=db
+    - POSTGRES_PORT=5432
+    - POSTGRES_DB=order-book
+    - POSTGRES_USER=vachagan
+    - POSTGRES_PASSWORD=vachagan
+    restart: always
+    command: sh -c "python manage.py runserver 0.0.0.0:8000"
+    volumes:
+      - ./app:/app
+
+  db:
+    image: postgres:latest
+    environment:
+      POSTGRES_DB: order-book
+      POSTGRES_USER: vachagan
+      POSTGRES_PASSWORD: vachagan
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    ports:
+      - 5432:5432
+
+
+volumes:
+    postgres_data:
