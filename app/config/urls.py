@@ -24,6 +24,7 @@ from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 # api routers
 api_urlpatterns = [
     path("api/users/", include("auth.urls")),
+    path("api/order-book/", include("stock.urls")),
 ]
 
 

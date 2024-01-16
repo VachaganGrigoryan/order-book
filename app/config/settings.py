@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     # Third Party pkgs
     'rest_framework',
     'rest_framework_simplejwt',
+    'stock',
 ]
 
 MIDDLEWARE = [
