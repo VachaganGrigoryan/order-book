@@ -29,7 +29,12 @@ The Stock Service is a web application built using Django REST for the backend a
     ```bash
     docker-compose exec app python manage.py createsuperuser
     ```
-5. **Access the application:**
+5. **Run Django tests:**
+
+    ```bash
+    docker-compose exec app python manage.py test
+    ```
+6. **Access the application:**
     - Frontend: [http://localhost:3000](http://localhost:3000)
     - Backend API: [http://localhost:8000](http://localhost:8000)
     - Django Admin: [http://localhost:8000/admin](http://localhost:8000/admin/)
